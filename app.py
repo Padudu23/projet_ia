@@ -41,7 +41,7 @@ def load_model():
             compile=False,
             custom_objects=custom_objects
         )
-        st.success("Modèle chargé avec succès!")
+        st.success()
         return model
     except FileNotFoundError:
         st.error("ERREUR: Fichier keras_model.h5 introuvable")
@@ -65,7 +65,7 @@ if not os.path.exists('keras_model.h5'):
     st.error("CRITIQUE: Le fichier keras_model.h5 est manquant!")
     st.stop()
 
-st.write("Fichier modèle détecté, chargement en cours...")
+st.write()
 
 # Fonction de prétraitement
 def preprocess_image(image):
@@ -100,8 +100,8 @@ if uploaded_file is not None and model is not None:
 
             # Résultats
             st.success(f"""
-            **Votre véhicule est un ** {class_names[class_idx].upper()}
-            **Confiance :** {confidence:.2%}
+            **Votre véhicule est un** {class_names[class_idx].upper()}
+            /n**Confiance :** {confidence:.2%}
             """)
 
     except Exception as e:
