@@ -64,7 +64,6 @@ if not os.path.exists('keras_model.h5'):
     st.error("CRITIQUE: Le fichier keras_model.h5 est manquant!")
     st.stop()
 
-st.write()
 
 # Fonction de prétraitement
 def preprocess_image(image):
