@@ -8,38 +8,15 @@ Original file is located at
 """
 
 import streamlit as st
-from PIL import Image
 import numpy as np
-import tensorflow as tf
+from PIL import Image
 
-# Titre de l'application
-st.title("🚗 Système de reconnaissance de véhicule")
+st.title("Système de reconnaissance de véhicule")
 
-# Chargement du modèle
-@st.cache_resource
-def load_model():
-    return tf.keras.models.load_model('keras_model.h5')
-
-model = load_model()
-classes = ["bus", "camion", "minibus", "suv"]
-
-# Téléchargement d'image
-upload = st.file_uploader("Importez une photo de véhicule...", type=["jpg", "png","jpeg"])
+upload = st.file_uploader("Téléchargez une image...", type=["jpg", "png"])
 
 if upload:
-    # Afficher l'image
-    img = Image.open(upload).convert("RGB")
+    img = Image.open(upload)
     st.image(img, width=300)
+    st.success("Fonctionnel ! Modèle à intégrer ensuite")
 
-    # Préparation de l'image
-    img = img.resize((224, 224))
-    img_array = (np.array(img) / 127.5) - 1
-    img_array = np.expand_dims(img_array, axis=0)
-
-    # Prédiction
-    pred = model.predict(img_array)
-    class_idx = np.argmax(pred[0])
-    conf = pred[0][class_idx]
-
-    # Résultat
-    st.success(f"**C'est un :** {classes[class_idx]} (Confiance : {conf:.0%})")
