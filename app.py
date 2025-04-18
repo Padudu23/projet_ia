@@ -14,6 +14,7 @@ from PIL import Image, ImageOps
 import numpy as np
 import tensorflow as tf
 import streamlit as st
+import os
 
 # Vérification des dépendances
 try:
