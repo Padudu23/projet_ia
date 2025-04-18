@@ -41,7 +41,6 @@ def load_model():
             compile=False,
             custom_objects=custom_objects
         )
-        st.success()
         return model
     except FileNotFoundError:
         st.error("ERREUR: Fichier keras_model.h5 introuvable")
