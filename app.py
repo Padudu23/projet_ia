@@ -26,12 +26,21 @@ except Exception as e:
 @st.cache_resource
 def load_model():
     try:
-        # Vérifie d'abord si le fichier existe
+        # Solution pour l'erreur DepthwiseConv2D
+        custom_objects = {
+            'DepthwiseConv2D': lambda **kwargs: tf.keras.layers.DepthwiseConv2D(
+                **{k: v for k, v in kwargs.items() if k != 'groups'}
+            )
+        }
+        
         with open('keras_model.h5', 'rb') as f:
             pass
-
-        # Charge le modèle
-        model = tf.keras.models.load_model('keras_model.h5', compile=False)
+            
+        model = tf.keras.models.load_model(
+            'keras_model.h5', 
+            compile=False,
+            custom_objects=custom_objects
+        )
         st.success("Modèle chargé avec succès!")
         return model
     except FileNotFoundError:
