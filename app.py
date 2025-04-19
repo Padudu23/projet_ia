@@ -100,7 +100,8 @@ if uploaded_file is not None and model is not None:
             # Résultats
             st.success(f"""
             **Votre véhicule est un** {class_names[class_idx].upper()}
-            /n**Confiance :** {confidence:.2%}
+            
+            **Confiance :** {confidence:.2%}
             """)
 
     except Exception as e:
